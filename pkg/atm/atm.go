@@ -120,9 +120,82 @@ func Deposit() {
 
 // Withdraw handles cash withdrawal operations for user.
 func Withdraw() {
-	fmt.Println("withdraw")
-	// var withdrawalAmount float64
-	NewOperation()
+	utils.NewLine(1)
+	fmt.Println("--------------WITHDRAWAL----------------")
+	utils.NewLine(1)
+
+	var withdrawalAmount float64
+	var selectedOption int
+
+	fmt.Print(" How much would you like to withdraw?")
+	utils.NewLine(1)
+	fmt.Println("1. 5000 \t\t 2. 10000")
+	fmt.Println("3. 15000 \t\t 4. 20000")
+	fmt.Println("5. 30000\t\t 6. other")
+
+	_, err := fmt.Scan(&selectedOption)
+	utils.NewLine(1)
+	utils.CheckErr(err)
+
+	for {
+		if acctBalance == 0 {
+			fmt.Println("ERROR: account balance is currently ₦0.00, please make a deposit")
+			Menu()
+		}
+
+		if withdrawalAmount > acctBalance {
+			fmt.Println("Insufficient Funds")
+			NewOperation()
+		}
+
+		switch selectedOption {
+		case 1:
+			acctBalance -= 5000
+			fmt.Println("You have successfully withdrawn ₦5000")
+		case 2:
+			acctBalance -= 10000
+			fmt.Println("You have successfully withdrawn ₦10000")
+		case 3:
+			acctBalance -= 15000
+			fmt.Println("You have successfully withdrawn ₦20000")
+		case 4:
+			acctBalance -= 20000
+			fmt.Println("You have successfully withdrawn ₦30000")
+		case 5:
+			acctBalance -= 30000
+			fmt.Println("You have successfully withdrawn ₦50000")
+		case 6:
+			fmt.Print("Enter the amount you wish to withdraw: ")
+			for {
+				_, err := fmt.Scan(&withdrawalAmount)
+				utils.CheckErr(err)
+				if withdrawalAmount > 0 {
+					if acctBalance == 0 {
+						fmt.Println("ERROR: account balance is currently ₦0.00, please make a deposit")
+						Menu()
+					}
+
+					if withdrawalAmount > acctBalance {
+						fmt.Println("Insufficient Funds")
+						NewOperation()
+					}
+
+					acctBalance -= withdrawalAmount
+					fmt.Printf("You have successfully withdrawn ₦%.2f", withdrawalAmount)
+					utils.NewLine(1)
+					break
+				} else {
+					fmt.Printf("ERROR: cannot withdraw ₦%.2f, enter valid amount: ", withdrawalAmount)
+				}
+			}
+
+		default:
+			fmt.Println("ERROR: invalid input, select a valid option")
+		}
+
+		NewOperation()
+
+	}
 }
 
 // NewOperation prompts user to either perform a
@@ -147,7 +220,7 @@ func NewOperation() {
 	}
 }
 
-// Exit terminates the running user session.
+// Exit terminates running user session.
 func Exit() {
 	utils.NewLine(1)
 	fmt.Println("Thank you for banking with us.")
