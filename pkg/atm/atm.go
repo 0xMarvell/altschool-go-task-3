@@ -19,6 +19,7 @@ func WelcomeScreen() {
 
 // Menu displays all available operations to user.
 func Menu() {
+	utils.NewLine(1)
 	fmt.Println("----------SELECT OPERATION----------")
 	utils.NewLine(1)
 	fmt.Println("1. Check Balance \t 2. Withdraw")

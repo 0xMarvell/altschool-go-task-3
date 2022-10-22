@@ -14,7 +14,6 @@ func Login() {
 		if !VerifyPIN(PIN) {
 			continue
 		}
-
 		break
 	}
 }
@@ -22,19 +21,21 @@ func Login() {
 // ChangePIN updates userr account PIN.
 func ChangePIN() {
 	utils.NewLine(1)
-	fmt.Println("change pin")
+	fmt.Println("-------------CHANGE PIN-------------")
 	for {
-		fmt.Printf("Enter new pin: ")
+		fmt.Printf("Enter new PIN: ")
 		var updatedPIN string
-		fmt.Scan(&updatedPIN)
+		_, err := fmt.Scan(&updatedPIN)
+		utils.CheckErr(err)
 
 		if len(updatedPIN) != 4 {
-			fmt.Println("Pin should be 4 characters long")
+			fmt.Println("PIN should be 4 characters long")
 			continue
 		}
 
 		PIN = updatedPIN
-		fmt.Println("Pin has been changed")
+		fmt.Println("PIN updated successfully")
+		NewOperation()
 		break
 	}
 }
@@ -43,10 +44,11 @@ func ChangePIN() {
 func VerifyPIN(acctPIN string) bool {
 	var inputPIN string
 	fmt.Printf("ENTER PIN: ")
-	fmt.Scan(&inputPIN)
+	_, err := fmt.Scan(&inputPIN)
+	utils.CheckErr(err)
 
 	if acctPIN != inputPIN {
-		fmt.Println("Incorrect pin")
+		fmt.Println("Incorrect PIN")
 		return false
 	}
 
