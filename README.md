@@ -10,6 +10,11 @@ A simple ATM CLI that performs the following basic operations:
 ## DEMO
 
 
+https://user-images.githubusercontent.com/76994685/197339836-b14344b6-fca4-4419-8fb8-56a73126cf60.mp4
+
+
+
+
 ## How to run program
 
 - Clone Repo.
